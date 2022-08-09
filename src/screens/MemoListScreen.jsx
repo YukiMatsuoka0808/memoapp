@@ -9,7 +9,7 @@ export default function MemoListScreen() {
     <View style={styles.container}/** propsを渡すことで呼び出す側から表示を制御できる */>
       <AppBar />
       <MemoList />
-      <CircleButton style={{ top: 24 }}>+</CircleButton>
+      <CircleButton name="plus" />
     </View>
   );
 }
