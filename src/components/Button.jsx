@@ -1,20 +1,28 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import {
+  TouchableOpacity, Text, StyleSheet,
+} from 'react-native';
 
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
 
-export default function Button(props){
-  const { label } = props;/** buttonlabelを親のコンポーネントから渡せるようにする */
-  //propsを使って、labelというプロパティを受け取っている。
+export default function Button(props) {
+  const { label, onPress } = props;
+  /** buttonlabelを親のコンポーネントから渡せるようにする */
+  // propsを使って、labelというプロパティを受け取っている。
   return (
-    <View style={styles.buttoncontainer}>
-    <Text style={styles.buttonlabel}>{label}</Text>
-  </View>
+    <TouchableOpacity style={styles.buttoncontainer} onPress={onPress}>
+      <Text style={styles.buttonlabel}>{label}</Text>
+    </TouchableOpacity>
   );
 }
 
 Button.propTypes = {
   label: string.isRequired,
+  onPress: func,
+};
+
+Button.defaultProps = {
+  onPress: null,
 };
 
 const styles = StyleSheet.create({

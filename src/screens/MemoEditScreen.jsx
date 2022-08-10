@@ -11,7 +11,7 @@ export default function MemoEditScreen() {
       <AppBar />
       <View style={styles.inputContainer}>
         <TextInput value="買い物リスト" multiline style={styles.input} />
-      </View>
+      </View> 
       <CircleButton name="check" />
     </KeyboardAvoidingView>
   );
