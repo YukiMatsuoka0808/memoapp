@@ -22,7 +22,7 @@ CircleButton.defaultProps = {
   style: null,
 };
 
-/** もし、isRequiredで何ならば
+/** もし、isRequiredがないならば
  *初期値を与える必要がある。
  *CircleButton.propTypes = {
     children: string,
@@ -30,7 +30,7 @@ CircleButton.defaultProps = {
  */
 
 const styles = StyleSheet.create({
-circleButton: {
+ circleButton: {
     backgroundColor: '#467FD3',
     width: 64,
     height: 64,
