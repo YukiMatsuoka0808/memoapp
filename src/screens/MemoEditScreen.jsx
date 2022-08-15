@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, KeyboardAvoidingView,
+import {
+  View, TextInput, StyleSheet, KeyboardAvoidingView,
 } from 'react-native';
 
-import AppBar from '../components/AppBar';
 import CircleButton from '../components/CircleButton';
 
-export default function MemoEditScreen() {
+export default function MemoEditScreen(props) {
+  const { navigation } = props; // この仕組みはnavigationが提供している
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
-      <AppBar />
       <View style={styles.inputContainer}>
         <TextInput value="買い物リスト" multiline style={styles.input} />
-      </View> 
-      <CircleButton name="check" />
+      </View>
+      <CircleButton
+        name="check"
+        onPress={() => { navigation.goBack(); }}
+      />
     </KeyboardAvoidingView>
   );
 }

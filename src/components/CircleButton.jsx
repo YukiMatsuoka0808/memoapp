@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { string, shape, } from 'prop-types';
+import { string, shape, func } from 'prop-types';
 
 import { Feather } from '@expo/vector-icons';
 
 export default function CircleButton(props) {
-  const { style, name } = props;
+  const { style, name, onPress } = props;
   return (
-    <TouchableOpacity style={[styles.circleButton, style]}>
+    <TouchableOpacity style={[styles.circleButton, style]} onPress={onPress}>
       <Feather name={name} size={30} color="white" />
     </TouchableOpacity>
   );
@@ -16,10 +16,12 @@ export default function CircleButton(props) {
 CircleButton.propTypes = {
   style: shape(),
   name: string.isRequired,
+  onPress: func, // これが関数である。ことを指定
 };
 
 CircleButton.defaultProps = {
   style: null,
+  onPress: null,
 };
 
 /** もし、isRequiredがないならば
@@ -30,7 +32,7 @@ CircleButton.defaultProps = {
  */
 
 const styles = StyleSheet.create({
- circleButton: {
+  circleButton: {
     backgroundColor: '#467FD3',
     width: 64,
     height: 64,
