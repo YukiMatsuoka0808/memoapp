@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState } from 'react';
 import {
   View, Text, StyleSheet, TextInput, TouchableOpacity,
 } from 'react-native';
@@ -7,12 +7,31 @@ import Button from '../components/Button';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
+  const [email, setEmail] = useState(''); // emailを設定する。配列からemailとsetemailを取り出している.
+  const [password, setPassword] = useState('');// passwordを設定する
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
         <Text style={styles.title}> Log In</Text>
-        <TextInput style={styles.input} value="Email Address" />
-        <TextInput style={styles.input} value="Password" />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={(text) => { setEmail(text); }}// テキストを入力できるように
+          autoCapitalize="none" // 最初を小文字に
+          keyboardType="email-address"
+          placeholder="Email Address"// 何も書いてないときにうっすら
+          textContentType="emailAddress"
+        />
+        <TextInput
+          style={styles.input}
+          value={password}
+          onChangeText={(text) => { setPassword(text); }}
+          autoCapitalize="none"
+          secureTextEntry // 不可視化 デフォルトでtrue
+          placeholder="password"
+          textContentType="password"
+        />
+
         <Button // Buttonコンポーネントに以下のpropsを渡せるように設定してないといけない
           label="Submit"
           onPress={() => {
