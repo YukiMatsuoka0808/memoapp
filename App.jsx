@@ -10,11 +10,9 @@ import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
-import{ firebaseConfig } from '/.env';
+import{ firebaseConfig } from './env.js';
 
 const Stack = createStackNavigator();
-
-
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);// firebaseの初期化を行う
@@ -41,7 +39,7 @@ export default function App() {
         <Stack.Screen name="MemoEdit" component={MemoEditScreen} />
         <Stack.Screen name="MemoCreate" component={MemoCreateScreen} />
         <Stack.Screen
-          name="Login"
+          name="LogIn"
           component={LoginScreen}
           options={{
             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,

@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';/** ../で一段階上の階層に移動する */
 import MemoList from '../components/MemoList';
 import CircleButton from '../components/CircleButton';
 
+import LogOutButton from '../components/LogOutButton';
+
 export default function MemoListScreen(props) {
   const { navigation } = props;
+  useEffect(() => { //コールバック関数として実行したい処理を書く。
+    navigation.setOptions({
+      headerRight: () => <LogOutButton />,
+    });
+  }, []);//,[]をつけることで、実行したいものを表示された1回目だけで実行できる
+
   return (
     <View style={styles.container}/** propsを渡すことで呼び出す側から表示を制御できる */>
       <MemoList />

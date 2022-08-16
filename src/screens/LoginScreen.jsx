@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, {useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
@@ -10,6 +10,26 @@ export default function LoginScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState(''); // emailを設定する。配列からemailとsetemailを取り出している.
   const [password, setPassword] = useState('');// passwordを設定する
+
+  /** useEffect(() => {
+    console.log('useEffect!'); //表示された瞬間にuseEffectの画面が出る。
+    return () => {
+      console.log('Unmount!');
+    };
+  }, []); */
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      //　ユーザが常にログインしているかを確認する
+      if (user) { //画面の遷移
+        navigation.reset({ // routeでnavigationを上書きして
+          index: 0, // index 0番目に戻って。つまりbackボタンは出ない
+          routes: [{ name: 'MemoList' }],
+      });
+    }
+    });
+    return unsubscribe;
+},[]); //配列に値を入れておけば、その値が変更されたときのみに監視してくれる。
 
   function handlePress(){
     firebase.auth().signInWithEmailAndPassword(email, password)
