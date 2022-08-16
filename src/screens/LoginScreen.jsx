@@ -1,7 +1,8 @@
 import React, {useState } from 'react';
 import {
-  View, Text, StyleSheet, TextInput, TouchableOpacity,
+  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
+import firebase from 'firebase';
 
 import Button from '../components/Button';
 
@@ -9,6 +10,23 @@ export default function LoginScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState(''); // emailを設定する。配列からemailとsetemailを取り出している.
   const [password, setPassword] = useState('');// passwordを設定する
+
+  function handlePress(){
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const { user } = userCredential;
+      console.log(user.uid);
+       navigation.reset({ // routeでnavigationを上書きして
+        index: 0, // index 0番目に戻って。つまりbackボタンは出ない
+        routes: [{ name: 'MemoList' }],
+      });
+    })
+      .catch((error) => {
+        console.log(error.code, error.message);
+        Alert.alert(error.code);
+      });
+    }
+
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -34,12 +52,7 @@ export default function LoginScreen(props) {
 
         <Button // Buttonコンポーネントに以下のpropsを渡せるように設定してないといけない
           label="Submit"
-          onPress={() => {
-            navigation.reset({ // routeでnavigationを上書きして
-              index: 0, // index 0番目に戻って。つまりbackボタンは出ない
-              routes: [{ name: 'MemoList' }],
-            });
-          }}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not registered? </Text>

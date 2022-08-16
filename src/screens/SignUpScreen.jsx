@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, TextInput, TouchableOpacity,
+  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert
 } from 'react-native';
+import firebase from 'firebase';
 
 import Button from '../components/Button';
 
@@ -9,6 +10,23 @@ export default function SignUpScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState(''); // emailを設定する。配列からemailとsetemailを取り出している.
   const [password, setPassword] = useState('');// passwordを設定する
+
+  function handlePress() { // handlehandlePless
+    firebase.auth().createUserWithEmailAndPassword(email,password)
+    .then((userCredential) => { //会員登録が成功した以下を実行
+      const { user } = userCredential;//userCredentialからuserを取り出す。
+      console.log(user.uid);
+      navigation.reset({//会員登録に成功した場合のみ有効
+        index: 0,
+        routes: [{ name: 'MemoList' }],
+      });
+    })
+    .catch((error) => { //会員登録が失敗した場合
+      console.log(error.code, error.message);
+      Alert.alert(error.code); //エラーをUIに表示
+    });
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -33,12 +51,7 @@ export default function SignUpScreen(props) {
         />
         <Button
           label="Submit"
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'MemoList' }], // MemoListに戻る
-            });
-          }}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already registerd? </Text>
