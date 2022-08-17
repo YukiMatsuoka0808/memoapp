@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
@@ -20,32 +20,32 @@ export default function LoginScreen(props) {
 
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      //　ユーザが常にログインしているかを確認する
-      if (user) { //画面の遷移
+      // ユーザが常にログインしているかを確認する
+      if (user) { // 画面の遷移
         navigation.reset({ // routeでnavigationを上書きして
           index: 0, // index 0番目に戻って。つまりbackボタンは出ない
           routes: [{ name: 'MemoList' }],
-      });
-    }
+        });
+      }
     });
     return unsubscribe;
-},[]); //配列に値を入れておけば、その値が変更されたときのみに監視してくれる。
+  }, []); // 配列に値を入れておけば、その値が変更されたときのみに監視してくれる。
 
-  function handlePress(){
+  function handlePress() {
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const { user } = userCredential;
-      console.log(user.uid);
-       navigation.reset({ // routeでnavigationを上書きして
-        index: 0, // index 0番目に戻って。つまりbackボタンは出ない
-        routes: [{ name: 'MemoList' }],
-      });
-    })
+      .then((userCredential) => {
+        const { user } = userCredential;
+        console.log(user.uid);
+        navigation.reset({ // routeでnavigationを上書きして
+          index: 0, // index 0番目に戻って。つまりbackボタンは出ない
+          routes: [{ name: 'MemoList' }],
+        });
+      })
       .catch((error) => {
         console.log(error.code, error.message);
         Alert.alert(error.code);
       });
-    }
+  }
 
   return (
     <View style={styles.container}>

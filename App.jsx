@@ -10,10 +10,9 @@ import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
-import{ firebaseConfig } from './env.js';
+import { firebaseConfig } from './env';
 
 require('firebase/firestore');
-
 
 const Stack = createStackNavigator();
 
@@ -25,7 +24,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login" /** 表示されるスクリーン */
+        initialRouteName="MemoList" /** 表示されるスクリーン */
         screenOptions={{
           headerStyle: { backgroundColor: '#467FD3' },
           headerTitleStyle: { color: '#ffffff' },
