@@ -11,7 +11,7 @@ export default function SignUpScreen(props) {
   const [email, setEmail] = useState(''); // emailを設定する。配列からemailとsetemailを取り出している.
   const [password, setPassword] = useState('');// passwordを設定する
 
-  function handlePress() { // handlePless
+  const handlePress = () => { // handlePless
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((userCredential) => { // 会員登録が成功したらコールバック関数を実行する。
         // コールバック関数のなかにuserCredential（ユーザの情報を受け取る）ものを設定。今回はアローファンクション。
@@ -26,8 +26,7 @@ export default function SignUpScreen(props) {
         console.log(error.code, error.message);
         Alert.alert(error.code); // エラーをUIに表示
       });
-  }
-
+  };
   return (
     <View style={styles.container}>
       <View style={styles.inner}>

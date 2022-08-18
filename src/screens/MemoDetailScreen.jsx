@@ -5,9 +5,7 @@ import {
 } from 'react-native';
 
 import firebase from 'firebase';
-
 import CircleButton from '../components/CircleButton';
-
 import { dateToString } from '../utils';
 
 export default function MemoDetailScreen(props) {
@@ -49,7 +47,7 @@ export default function MemoDetailScreen(props) {
       <CircleButton
         style={{ top: 60, bottom: 'auto' }}
         name="edit-2"
-        onPress={() => { navigation.navigate('MemoEdit'); }}
+        onPress={() => { navigation.navigate('MemoEdit', { id: memo.id, bodyText: memo.bodyText }); }}
       />
     </View>
   );
