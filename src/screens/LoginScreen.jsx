@@ -5,11 +5,13 @@ import {
 import firebase from 'firebase';
 
 import Button from '../components/Button';
+import Loading from '../components/Loading';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState(''); // emailを設定する。配列からemailとsetemailを取り出している.
   const [password, setPassword] = useState('');// passwordを設定する
+  const [isLoading, setLoading] = useState(true);
 
   /** useEffect(() => {
     console.log('useEffect!'); //表示された瞬間にuseEffectの画面が出る。
@@ -26,12 +28,15 @@ export default function LoginScreen(props) {
           index: 0, // index 0番目に戻って。つまりbackボタンは出ない
           routes: [{ name: 'MemoList' }],
         });
+      } else {
+        setLoading(false);
       }
     });
     return unsubscribe;
   }, []); // 配列に値を入れておけば、その値が変更されたときのみに監視してくれる。
 
   function handlePress() {
+    setLoading(true);
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         const { user } = userCredential;
@@ -44,11 +49,15 @@ export default function LoginScreen(props) {
       .catch((error) => {
         console.log(error.code, error.message);
         Alert.alert(error.code);
+      })
+      .then(() => {
+        setLoading(false);
       });
   }
 
   return (
     <View style={styles.container}>
+      <Loading isLoading={isLoading} />
       <View style={styles.inner}>
         <Text style={styles.title}> Log In</Text>
         <TextInput

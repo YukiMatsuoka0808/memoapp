@@ -3,14 +3,14 @@ import {
   TouchableOpacity, Text, StyleSheet,
 } from 'react-native';
 
-import { string, func } from 'prop-types';
+import { string, func, shape } from 'prop-types';
 
 export default function Button(props) {
-  const { label, onPress } = props;
+  const { label, onPress, style } = props;
   /** buttonlabelを親のコンポーネントから渡せるようにする */
   // propsを使って、labelというプロパティを受け取っている。
   return (
-    <TouchableOpacity style={styles.buttoncontainer} onPress={onPress}>
+    <TouchableOpacity style={[styles.buttoncontainer, style]} onPress={onPress}>
       <Text style={styles.buttonlabel}>{label}</Text>
     </TouchableOpacity>
   );
@@ -19,10 +19,12 @@ export default function Button(props) {
 Button.propTypes = {
   label: string.isRequired,
   onPress: func,
+  style: shape(),
 };
 
 Button.defaultProps = {
   onPress: null,
+  style: null,
 };
 
 const styles = StyleSheet.create({
