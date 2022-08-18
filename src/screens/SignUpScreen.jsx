@@ -3,7 +3,7 @@ import {
   View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
 import firebase from 'firebase';
-
+import { translateErrors } from '../utils';
 import Button from '../components/Button';
 
 export default function SignUpScreen(props) {
@@ -23,8 +23,8 @@ export default function SignUpScreen(props) {
         });
       })
       .catch((error) => { // 会員登録が失敗した場合
-        console.log(error.code, error.message);
-        Alert.alert(error.code); // エラーをUIに表示
+        const errorMsg = translateErrors(error.code);
+        Alert.alert(errorMsg.title, errorMsg.description); // エラーをUIに表示
       });
   };
   return (
