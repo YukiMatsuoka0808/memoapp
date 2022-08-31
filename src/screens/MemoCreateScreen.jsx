@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import firebase from 'firebase';
 import CircleButton from '../components/CircleButton';
+// import Flag from '../components/Flag';
 
 export default function MemoCreateScreen(props) {
   const { navigation } = props;
@@ -18,6 +19,7 @@ export default function MemoCreateScreen(props) {
     ref.add({
       bodyText, /** bodyTextをfirestoreに保存 */
       updatedAt: new Date(),
+      isActive: false,
     })
       .then((docRef) => {
         console.log('Created!', docRef.id);
@@ -39,9 +41,13 @@ export default function MemoCreateScreen(props) {
           autoFocus
         />
       </View>
+      {/* <Flag
+        onPress={active}
+      /> */}
       <CircleButton
         name="check"
         onPress={handlePress}
+        // propsを渡してる
       />
     </KeyboardAvoidingView>
   );

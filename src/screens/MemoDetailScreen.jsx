@@ -11,6 +11,7 @@ import { dateToString } from '../utils';
 export default function MemoDetailScreen(props) {
   const { navigation, route } = props;
   const { id } = route.params;
+  // ここの意味を調べる。memolistの18行目
   console.log(id);
   const [memo, setMemo] = useState(null);
 
@@ -30,7 +31,7 @@ export default function MemoDetailScreen(props) {
         });
       });
     }
-    return unsubscribe;
+    return unsubscribe; // 19行目をよんでる？なんのために？
   }, []);
 
   return (
@@ -47,7 +48,7 @@ export default function MemoDetailScreen(props) {
       <CircleButton
         style={{ top: 60, bottom: 'auto' }}
         name="edit-2"
-        onPress={() => { navigation.navigate('MemoEdit', { id: memo.id, bodyText: memo.bodyText }); }}
+        onPress={() => { navigation.navigate('MemoEdit', { id: memo.id, bodyText: memo.bodyText, aa: 'aa' }); }}
       />
     </View>
   );

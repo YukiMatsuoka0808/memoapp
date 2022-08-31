@@ -9,8 +9,10 @@ import { translateErrors } from '../utils';
 
 export default function MemoEditScreen(props) {
   const { navigation, route } = props; // この仕組みはnavigationが提供している
-  const { id, bodyText } = route.params; // bodytextは、memodetailスクリーンから取り出してきたbody
+  const { id, bodyText, aa } = route.params; // bodytextは、memodetailスクリーンから取り出してきたbody
   const [body, setBody] = useState(bodyText);
+
+  const [aaa, setAaa] = useState(aa);
 
   function handlePress() {
     const { currentUser } = firebase.auth();
@@ -22,7 +24,7 @@ export default function MemoEditScreen(props) {
         updatedAt: new Date(),
       }, { merge: true })
         .then(() => {
-          navigation.goback();
+          navigation.goBack();
         })
         .catch((error) => {
           const errorMsg = translateErrors(error.code);

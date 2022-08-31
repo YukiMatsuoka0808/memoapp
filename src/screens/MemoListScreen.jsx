@@ -29,7 +29,7 @@ export default function MemoListScreen(props) {
   // データベースからデータを取り出す。
   // まず、保存したデータのリストを取り出したい。
   useEffect(() => {
-    const db = firebase.firestore(); // 1.メモのリストを監視するコード
+    const db = firebase.firestore(); // 1.メーモのリストを監視するコード
     const { currentUser } = firebase.auth(); // 3.カレントユーザを取得するコード
     let unsubscribe = () => {};
     // 5.監視をキャンセルする、letは、後から値を再代入できる。constはできない。
@@ -41,12 +41,12 @@ export default function MemoListScreen(props) {
         // 4.refを使ってメモのリストを監視する。snapshotのコールバック関数には、メモのリストが入っている
         const userMemos = []; // 一時的な配列
         snapshot.forEach((doc) => {
-          console.log(doc.id, doc.data());
           const data = doc.data();
           userMemos.push({
             id: doc.id,
             bodyText: data.bodyText,
             updatedAt: data.updatedAt.toDate(),
+            isActive: data.isActive,
             // ドキュメントから加工したデータを入れる。
           });
         });

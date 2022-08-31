@@ -5,9 +5,13 @@ import { string, shape, func } from 'prop-types';
 import { Feather } from '@expo/vector-icons';
 
 export default function CircleButton(props) {
+  // propsをもらってる
   const { style, name, onPress } = props;
   return (
-    <TouchableOpacity style={[styles.circleButton, style]} onPress={onPress}>
+    <TouchableOpacity
+      style={[styles.circleButton, style]}
+      onPress={onPress}
+    >
       <Feather name={name} size={30} color="white" />
     </TouchableOpacity>
   );
